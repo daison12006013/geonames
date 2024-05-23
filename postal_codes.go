@@ -13,7 +13,7 @@ import (
 const postalCodesURL = `http://download.geonames.org/export/zip/%s.zip`
 
 func countrySwapToFull(iso2code string) string {
-	switch countryCode {
+	switch iso2code {
 	case "GB":
 		return "GB_full.csv"
 	case "CA":
