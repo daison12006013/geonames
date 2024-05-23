@@ -4,7 +4,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const hierarchyURL = `hierarchy.zip`
@@ -16,7 +16,7 @@ func (c *Client) Hierarchy() (map[int][]*models.HierarchyNode, error) {
 	var err error
 	result := make(map[int][]*models.HierarchyNode)
 
-	zipped, err := c.httpGet(geonamesURL + hierarchyURL)
+	zipped, err := c.httpGetWithCache(geonamesURL + hierarchyURL)
 	if err != nil {
 		return nil, err
 	}

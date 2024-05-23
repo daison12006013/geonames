@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const timeZonesURL = `timeZones.txt`
@@ -14,7 +14,7 @@ func (c *Client) TimeZones() ([]*models.TimeZone, error) {
 	var err error
 	var result []*models.TimeZone
 
-	data, err := c.httpGet(geonamesURL + timeZonesURL)
+	data, err := c.httpGetWithCache(geonamesURL + timeZonesURL)
 	if err != nil {
 		return nil, err
 	}

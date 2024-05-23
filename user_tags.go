@@ -11,7 +11,7 @@ const userTagsURL = `userTags.zip`
 func (c *Client) UserTags() (map[int][]string, error) {
 	var err error
 
-	zipped, err := c.httpGet(geonamesURL + userTagsURL)
+	zipped, err := c.httpGetWithCache(geonamesURL + userTagsURL)
 	if err != nil {
 		return nil, err
 	}

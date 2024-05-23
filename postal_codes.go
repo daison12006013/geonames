@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const postalCodesURL = `http://download.geonames.org/export/zip/%s.zip`
@@ -22,7 +22,7 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 	}
 
 	url := fmt.Sprintf(postalCodesURL, strings.ToUpper(iso2code))
-	zipped, err := c.httpGet(url)
+	zipped, err := c.httpGetWithCache(url)
 	if err != nil {
 		return nil, err
 	}

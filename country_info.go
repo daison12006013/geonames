@@ -3,7 +3,7 @@ package geonames
 import (
 	"strconv"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const countryInfoURL = "countryInfo.txt"
@@ -13,7 +13,7 @@ func (c *Client) CountryInfo() (map[int64]*models.Country, error) {
 	var err error
 	result := make(map[int64]*models.Country)
 
-	data, err := c.httpGet(geonamesURL + countryInfoURL)
+	data, err := c.httpGetWithCache(geonamesURL + countryInfoURL)
 	if err != nil {
 		return nil, err
 	}

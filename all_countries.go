@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const allCountriesURI = `allCountries.zip`

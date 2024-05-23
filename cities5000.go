@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const cities5000URL = `cities5000.zip`
@@ -15,7 +15,7 @@ func (c *Client) Cities5000() (map[int]*models.Feature, error) {
 	var err error
 	result := make(map[int]*models.Feature)
 
-	zipped, err := c.httpGet(geonamesURL + cities5000URL)
+	zipped, err := c.httpGetWithCache(geonamesURL + cities5000URL)
 	if err != nil {
 		return nil, err
 	}

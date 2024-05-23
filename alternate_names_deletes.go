@@ -5,7 +5,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/remizovm/geonames/models"
+	"github.com/daison12006013/geonames/models"
 )
 
 const alternateNamesdeletesURL = `alternateNamesdeletes-%d-%02d-%02d.txt`
@@ -15,7 +15,7 @@ func (c *Client) AlternateNamesDeletes(year, month, day int) (map[int]*models.Al
 	var err error
 	uri := fmt.Sprintf(alternateNamesdeletesURL, year, month, day)
 
-	data, err := c.httpGet(geonamesURL + uri)
+	data, err := c.httpGetWithCache(geonamesURL + uri)
 	if err != nil {
 		return nil, err
 	}
