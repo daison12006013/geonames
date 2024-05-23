@@ -17,7 +17,7 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 	var err error
 	result := make(map[string]*models.PostalCode)
 
-	if len(iso2code) != 2 {
+	if len(iso2code) < 2 {
 		return nil, errors.New("invalid iso2code")
 	}
 
