@@ -133,7 +133,7 @@ func unzip(data []byte) ([]*zip.File, error) {
 }
 
 func getZipData(files []*zip.File, name string) ([]byte, error) {
-	var result []byte
+	var result bytes.Buffer
 
 	for _, f := range files {
 		if f.Name == name {
@@ -143,14 +143,15 @@ func getZipData(files []*zip.File, name string) ([]byte, error) {
 			}
 			defer src.Close()
 
-			result, err = ioutil.ReadAll(src)
+			reader := bufio.NewReader(src)
+			_, err = result.ReadFrom(reader)
 			if err != nil {
 				return nil, err
 			}
 		}
 	}
 
-	return result, nil
+	return result.Bytes(), nil
 }
 
 func sParse(s *bufio.Scanner, headerLength uint, f func([]string) bool) {
