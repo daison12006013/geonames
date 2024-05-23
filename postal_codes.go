@@ -3,6 +3,7 @@ package geonames
 import (
 	"errors"
 	"fmt"
+	"net/url"
 	"log"
 	"strconv"
 	"strings"
@@ -22,6 +23,12 @@ func countrySwapToFull(iso2code string) string {
 		return "NL_full.csv"
 	}
 	return iso2code
+}
+
+func (c *Client) SanitizeInput(s string) string {
+	s, _ = url.QueryUnescape(s)
+	s = strings.ReplaceAll(s, " ", "")
+	return strings.ToUpper(s)
 }
 
 // PostalCodes returns all postal codes for the selected countries iso2 code
@@ -72,7 +79,7 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 			accuracy = 0
 		}
 
-		result[string(raw[1])] = &models.PostalCode{
+		result[c.SanitizeInput(string(raw[1]))] = &models.PostalCode{
 			CountryIso2Code: string(raw[0]),
 			PostalCode:      string(raw[1]),
 			PlaceName:       string(raw[2]),
