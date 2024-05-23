@@ -12,6 +12,18 @@ import (
 
 const postalCodesURL = `http://download.geonames.org/export/zip/%s.zip`
 
+func countrySwapToFull(iso2code string) string {
+	switch countryCode {
+	case "GB":
+		return "GB_full.csv"
+	case "CA":
+		return "CA_full.csv"
+	case "NL":
+		return "NL_full.csv"
+	}
+	return iso2code
+}
+
 // PostalCodes returns all postal codes for the selected countries iso2 code
 func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, error) {
 	var err error
@@ -21,7 +33,8 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 		return nil, errors.New("invalid iso2code")
 	}
 
-	url := fmt.Sprintf(postalCodesURL, strings.ToUpper(iso2code))
+	iso2code = countrySwapToFull(iso2code)
+	url := fmt.Sprintf(postalCodesURL, iso2code)
 	zipped, err := c.httpGetWithCache(url)
 	if err != nil {
 		return nil, err
@@ -32,7 +45,8 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 		return nil, err
 	}
 
-	data, err := getZipData(f, strings.ToUpper(iso2code)+".txt")
+	iso2codeNoCsv := strings.Replace(iso2code, ".csv", "", -1)
+	data, err := getZipData(f, iso2codeNoCsv+".txt")
 	if err != nil {
 		return nil, err
 	}
