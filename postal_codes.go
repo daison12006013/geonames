@@ -55,7 +55,7 @@ func (c *Client) PostalCodes(iso2code string) (map[string]*models.PostalCode, er
 		accuracy, err := strconv.Atoi(string(raw[11]))
 		if err != nil {
 			log.Printf("while parsing postal code accuracy: %s", string(raw[11]))
-			return true
+			accuracy = 0
 		}
 
 		result[string(raw[1])] = &models.PostalCode{
