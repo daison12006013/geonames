@@ -26,9 +26,10 @@ func countrySwapToFull(iso2code string) string {
 }
 
 func (c *Client) SanitizeInput(s string) string {
-	s, _ = url.QueryUnescape(s)
-	s = strings.ReplaceAll(s, " ", "")
-	return strings.ToUpper(s)
+    s, _ = url.QueryUnescape(s)
+    s = strings.ReplaceAll(s, " ", "")
+    s = strings.ReplaceAll(s, "-", "")
+    return strings.ToUpper(s)
 }
 
 // PostalCodes returns all postal codes for the selected countries iso2 code
